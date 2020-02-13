@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BPLakeNetclientApplication {
+public class BPLakeNetClientApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BPLakeNetclientApplication.class, args);
+		SpringApplication.run(BPLakeNetClientApplication.class, args);
 	}
 
 }
