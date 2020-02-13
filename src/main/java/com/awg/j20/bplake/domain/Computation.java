@@ -1,9 +1,16 @@
 package com.awg.j20.bplake.domain;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 public class Computation {
+	@JsonDeserialize(as = AlgebraOperatorEnum.class)
 	private AlgebraOperator algebraOperation;
 	private Integer operandA;
 	private Integer operandB;
+	
+	public Computation() {
+		// for serialization
+	}
 	
 	public Computation(AlgebraOperator algOperation, Integer opA, Integer opB) {
 		this.algebraOperation = algOperation;

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<springProperty name="app.name" source="spring.application.name"/>
+	<springProperty name="log.file" source="logging.file"/>
+	<springProperty name="log.rolling.path" source="logging.rolling.path"/>
+	<springProperty name="log.level.ROOT" source="logging.level.ROOT"/>
+	<springProperty name="log.level.APP" source="logging.level.com.awg.j20.bplake"/>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+    	<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%-30(%d{dd/MM/yyyy HH:mm:ss.SSS}) | %-5level | %logger{32}  | %msg%n</pattern>
+		</encoder>
+  </appender>
+
+	<appender name="FILE-ALL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.file}</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.rolling.path}/${app.name}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+			<maxHistory>10</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%-30(%d{dd/MM/yyyy HH:mm:ss.SSS}) | %-5level | %logger{32}  | %msg%n</pattern>
+		</encoder>
+	</appender>
+
+    <logger name="com.awg.j20.bplake" level="${log.level.APP}" additivity="false">
+		<!-- <appender-ref ref="FILE-ALL"/> -->
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+
+	<root level="${log.level.ROOT}">
+		<!-- <appender-ref ref="FILE-ALL"/> -->
+		<appender-ref ref="CONSOLE"/>
+	</root>
+    
+ </configuration>

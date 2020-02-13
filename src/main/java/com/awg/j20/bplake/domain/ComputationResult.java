@@ -9,6 +9,8 @@ public class ComputationResult {
 	private Computation computation;
 	@JsonProperty("result")
 	private Integer result;
+	@JsonProperty("computationType")
+	private String computationType;
 	
 	/**
 	 * Private to avoid immediate result assigning.
@@ -27,11 +29,16 @@ public class ComputationResult {
 		this.result = result;
 	}
 	
+	public void specifyComputationType(String type) {
+		this.computationType = type;
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder("{ComputationResult: ");
 		 sb.append("for: ").append(this.computation)
 		   .append(", result:").append(result)
+		   .append(", type:").append(computationType)
 		   .append("}");
 		return sb.toString();
 	}

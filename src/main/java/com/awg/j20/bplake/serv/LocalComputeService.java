@@ -23,6 +23,7 @@ public class LocalComputeService implements ComputeService {
 											  computation.getOperandB());
 		
 		compResult.assignResult(evaluatedResult);
+		compResult.specifyComputationType("Local");
 		return compResult;
 	}
 

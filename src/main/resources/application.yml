@@ -1,0 +1,28 @@
+server:
+  port: 8080
+  
+spring:
+  application:
+    name:  bplake-local
+  profiles:
+    active: 'local'
+  
+#Logging:  
+logging:
+  config: classpath:./config/logback.xml
+  file:   logs/bplake-local.log
+  rolling:
+    path: logs/rolling
+  level: 
+    org.springframework: INFO
+    com.awg.j20.bplake: DEBUG
+    ROOT: INFO
+    
+#ENDPOINTS:
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - 'health'
+        - 'info'
