@@ -1,4 +1,4 @@
-package com.awg.j20.bplake.domain;
+package com.awg.j20.bplake.cntrl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -6,12 +6,16 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.awg.j20.bplake.cntrl.ArithmeticCntrlOperatorResolver;
+import com.awg.j20.bplake.domain.AlgebraOperator;
+import com.awg.j20.bplake.domain.AlgebraOperatorEnum;
+
 @ExtendWith(SpringExtension.class)
-public class AlgebraOperatorResolverTest {
+public class ArithmeticCntrlOperatorResolverTest {
 	
 	@Test
 	void shouldTolerate_EmptyStringAsVoid() {
-		AlgebraOperator actual = AlgebraOperatorResolver.resolve("");
+		AlgebraOperator actual = ArithmeticCntrlOperatorResolver.resolve("");
 		
 		AlgebraOperatorEnum c = (AlgebraOperatorEnum)actual;
 		
@@ -21,7 +25,7 @@ public class AlgebraOperatorResolverTest {
 	
 	@Test
 	void shouldTolerate_NullAsVoid() {
-		AlgebraOperator actual = AlgebraOperatorResolver.resolve(null);
+		AlgebraOperator actual = ArithmeticCntrlOperatorResolver.resolve(null);
 		
 		AlgebraOperatorEnum c = (AlgebraOperatorEnum)actual;
 		
@@ -31,7 +35,7 @@ public class AlgebraOperatorResolverTest {
 	
 	@Test
 	void shouldResolve_UpperCaseMult() {
-		AlgebraOperator actual = AlgebraOperatorResolver.resolve("MULT");
+		AlgebraOperator actual = ArithmeticCntrlOperatorResolver.resolve("MULT");
 		
 		AlgebraOperatorEnum c = (AlgebraOperatorEnum)actual;
 		
@@ -41,7 +45,7 @@ public class AlgebraOperatorResolverTest {
 	
 	@Test
 	void shouldResolve_MixCaseMult() {
-		AlgebraOperator actual = AlgebraOperatorResolver.resolve("MuLt");
+		AlgebraOperator actual = ArithmeticCntrlOperatorResolver.resolve("MuLt");
 		
 		AlgebraOperatorEnum c = (AlgebraOperatorEnum)actual;
 		
@@ -49,11 +53,9 @@ public class AlgebraOperatorResolverTest {
 		assertThat(AlgebraOperatorEnum.MULT.equals(c)).isTrue();
 	}
 	
-	
-	
 	@Test
 	void shouldResolve_Mult() {
-		AlgebraOperator actual = AlgebraOperatorResolver.resolve("mult");
+		AlgebraOperator actual = ArithmeticCntrlOperatorResolver.resolve("mult");
 		
 		AlgebraOperatorEnum c = (AlgebraOperatorEnum)actual;
 		
@@ -63,7 +65,7 @@ public class AlgebraOperatorResolverTest {
 	
 	@Test
 	void shouldDecline_LongMult() {
-		AlgebraOperator actual = AlgebraOperatorResolver.resolve("multiplication");
+		AlgebraOperator actual = ArithmeticCntrlOperatorResolver.resolve("multiplication");
 		
 		AlgebraOperatorEnum c = (AlgebraOperatorEnum)actual;
 		
@@ -74,7 +76,7 @@ public class AlgebraOperatorResolverTest {
 	
 	@Test
 	void shouldDecline_MultipleMult() {
-		AlgebraOperator actual = AlgebraOperatorResolver.resolve("multmult");
+		AlgebraOperator actual = ArithmeticCntrlOperatorResolver.resolve("multmult");
 		
 		AlgebraOperatorEnum c = (AlgebraOperatorEnum)actual;
 		
@@ -85,7 +87,7 @@ public class AlgebraOperatorResolverTest {
 	
 	@Test
 	void shouldDecline_Numbers() {
-		AlgebraOperator actual = AlgebraOperatorResolver.resolve("12345");
+		AlgebraOperator actual = ArithmeticCntrlOperatorResolver.resolve("12345");
 		
 		AlgebraOperatorEnum c = (AlgebraOperatorEnum)actual;
 		
@@ -96,7 +98,7 @@ public class AlgebraOperatorResolverTest {
 	
 	@Test
 	void shouldDecline_ArithmeticOperators() {
-		AlgebraOperator actual = AlgebraOperatorResolver.resolve("*");
+		AlgebraOperator actual = ArithmeticCntrlOperatorResolver.resolve("*");
 		
 		AlgebraOperatorEnum c = (AlgebraOperatorEnum)actual;
 		
@@ -104,5 +106,4 @@ public class AlgebraOperatorResolverTest {
 		assertThat(AlgebraOperatorEnum.MULT.equals(c)).isFalse();
 		assertThat(AlgebraOperatorEnum.VOID.equals(c)).isTrue();
 	}
-
 }

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResponseErrorHandler;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -28,34 +29,49 @@ public class RemoteComputeService implements ComputeService {
 	
 	@Autowired
 	private RemoteComputatorConfig computatorConfig;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@Override
 	public ComputationResult compute(Computation computation) {
 		logger.info("Compute remotely for: " + computation);
-		logger.info("Computator URL: " + computatorConfig.computatorUrl());
-		
-		//REST
-		RestTemplate restTemplate = new RestTemplate();
+		logger.info("Computator submition URL: " + submitionUri());
+
 		restTemplate.setErrorHandler(new RemoteComputationErrorHandler());
 		RequestEntity<Computation> request = RequestEntity
 				     			.post(submitionUri())
 				     			.accept(MediaType.APPLICATION_JSON)
 				     			.body(computation);
-		ResponseEntity<ComputationResult> response = restTemplate.exchange(request, ComputationResult.class);
-		
-		logger.info("RemComp response.Code: [{}], Body: [{}].", response.getStatusCode(), response.getBody());
-		
-		
-		ComputationResult compResult = response.getBody();
-		compResult.specifyComputationType("RemoteFromComputator");
-		return compResult;
+		try {
+			ResponseEntity<ComputationResult> response = restTemplate.exchange(request, ComputationResult.class);
+			
+			if(response.getStatusCode().is2xxSuccessful()) {
+				logger.info("RemComp response.Code: [{}], Body: [{}].", response.getStatusCode(), response.getBody());
+
+				ComputationResult compResult = response.getBody();
+				if(compResult == null) {
+					String msg = "Remote computation replied with empty body";
+					logger.error(msg);
+					throw new RemoteComputationUnavailableException(msg);
+				}
+				compResult.withComputationType("RemoteFromComputator");
+				return compResult;
+			}
+			String msg = "Remote computation status is not 200";
+			logger.error(msg);
+			throw new RemoteComputationUnavailableException(msg);			
+		} catch (RestClientException restEx) {
+			logger.error("Remote computation error: " + restEx.getMessage());
+			throw new RemoteComputationUnavailableException(restEx.getMessage());
+		}
 	}
 	
 	private URI submitionUri() {
 		String uriTemplate = computatorConfig.computatorUrl() + "/compute/submit";
-		UriComponents uriComponents = UriComponentsBuilder.fromUriString(uriTemplate)  
-		        //.queryParam("q", "{q}")  
-		        .build();
+		UriComponents uriComponents = UriComponentsBuilder
+										.fromUriString(uriTemplate)  
+										.build();
 		return uriComponents.encode().toUri();
 	}
 	

@@ -1,0 +1,9 @@
+{
+    "computation": {
+        "algebraOperation": "mult",
+        "operandA": 6,
+        "operandB": 7
+    },
+    "result": 42,
+    "computationType": "TestTypeSer"
+}

@@ -18,19 +18,21 @@ public class ComputationResult {
 	private ComputationResult() {		
 	}
 	
-	public static ComputationResult byComputation(Computation computation) {
+	public static ComputationResult forComputation(Computation computation) {
 		ComputationResult compResult = new ComputationResult();
 		compResult.computation = computation;
 		
 		return compResult;
 	}
 	
-	public void assignResult(Integer result) {
+	public ComputationResult withResult(Integer result) {
 		this.result = result;
+		return this;
 	}
 	
-	public void specifyComputationType(String type) {
+	public ComputationResult withComputationType(String type) {
 		this.computationType = type;
+		return this;
 	}
 	
 	@Override

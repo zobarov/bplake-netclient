@@ -17,13 +17,13 @@ public class LocalComputeService implements ComputeService {
 	public ComputationResult compute(Computation computation) {
 		logger.info("Compute locally for: " + computation);
 		
-		ComputationResult compResult = ComputationResult.byComputation(computation);
+		ComputationResult compResult = ComputationResult.forComputation(computation);
 		Integer evaluatedResult = computation.getAlgebraOperation()
 									.evaluate(computation.getOperandA(),
 											  computation.getOperandB());
 		
-		compResult.assignResult(evaluatedResult);
-		compResult.specifyComputationType("Local");
+		compResult.withResult(evaluatedResult);
+		compResult.withComputationType("Local");
 		return compResult;
 	}
 

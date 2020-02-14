@@ -7,7 +7,7 @@ public enum AlgebraOperatorEnum implements AlgebraOperator {
 	VOID {
 		@Override
 		public Integer evaluate(Integer a, Integer b) {
-			return 0;
+			return null;
 		}
 	},
 	@JsonProperty("mult")
@@ -24,4 +24,6 @@ public enum AlgebraOperatorEnum implements AlgebraOperator {
 			return a + b;
 		}
 	}
+	
+	
 }
