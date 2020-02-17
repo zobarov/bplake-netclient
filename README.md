@@ -36,7 +36,9 @@ Runs on port 8080
 I'm assuming to run two instances of the application in two separate prompts via:
 
 > gradle bootRun --args='--spring.profiles.active=computator'
+
 and
+
 > gradle bootRun --args='--spring.profiles.active=netclient'
 
 Then it will be available via standard HTTP requests by port 8080.
