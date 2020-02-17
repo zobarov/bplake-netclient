@@ -6,6 +6,8 @@ import java.net.URI;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -22,14 +24,16 @@ import com.awg.j20.bplake.config.RemoteComputatorConfig;
 import com.awg.j20.bplake.domain.Computation;
 import com.awg.j20.bplake.domain.ComputationResult;
 
+/**
+ * Computation service that performs remote REST call to obtain results.
+ */
 @Service
-@Profile("comp-remote")
+@Profile({"comp-remote", "netclient"})
 public class RemoteComputeService implements ComputeService {
 	private Logger logger = LoggerFactory.getLogger("RemoteComputeService");
 	
 	@Autowired
 	private RemoteComputatorConfig computatorConfig;
-	
 	@Autowired
 	private RestTemplate restTemplate;
 
@@ -75,10 +79,13 @@ public class RemoteComputeService implements ComputeService {
 		return uriComponents.encode().toUri();
 	}
 	
+	/**
+	 * Handles remote calls errors
+	 */
 	public class RemoteComputationErrorHandler implements ResponseErrorHandler {
 		  @Override
 		  public void handleError(ClientHttpResponse response) throws IOException {
-			  logger.error("Caught Remote computation error. Handling it here...");
+			  logger.error("Caught Remote computation error.");
 		  }
 
 		  @Override

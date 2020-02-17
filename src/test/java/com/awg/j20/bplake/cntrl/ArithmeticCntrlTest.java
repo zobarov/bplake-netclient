@@ -27,7 +27,7 @@ import com.awg.j20.bplake.serv.ComputeService;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = ArithmeticCntrl.class)
-@ActiveProfiles(profiles = {"comp-local"})
+@ActiveProfiles(profiles = {"comp-local", "netclient"})
 public class ArithmeticCntrlTest {
 	@Autowired
     private MockMvc mockMvc;

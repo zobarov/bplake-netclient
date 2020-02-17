@@ -24,7 +24,7 @@ group = 'com.awg.j20'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-def profiles = 'local'
+def profiles = 'comp-local'
 
 repositories {
 	mavenCentral()
@@ -54,3 +54,5 @@ test {
 bootRun {
   args = ["--spring.profiles.active=" + profiles]
 }
+
+

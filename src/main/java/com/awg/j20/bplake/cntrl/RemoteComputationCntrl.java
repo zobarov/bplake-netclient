@@ -17,6 +17,9 @@ import com.awg.j20.bplake.domain.Computation;
 import com.awg.j20.bplake.domain.ComputationResult;
 import com.awg.j20.bplake.serv.ComputeService;
 
+/**
+ * REST controller to receives computation entity for submitions.
+ */
 @RestController
 @RequestMapping("/compute")
 @Profile("computator")

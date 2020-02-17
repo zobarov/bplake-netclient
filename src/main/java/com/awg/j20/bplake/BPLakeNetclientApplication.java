@@ -12,6 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.core.env.Environment;
 
+/**
+ * Main application entry point
+ */
 @SpringBootApplication
 public class BPLakeNetClientApplication implements CommandLineRunner {
 	private Logger logger = LoggerFactory.getLogger("BPLakeNetClientApp");

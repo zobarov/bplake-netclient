@@ -1,5 +1,8 @@
 package com.awg.j20.bplake.serv;
 
+/**
+ * Indicates remote computation errors.
+ */
 public class RemoteComputationUnavailableException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	

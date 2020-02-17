@@ -8,8 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@ActiveProfiles(profiles = {"comp-local"})
-class BPLakeNetClientApplicationTests {
+@ActiveProfiles(profiles = {"comp-local", "computator"})
+class ContextLoadComputatorTests {
 
 	@Test
 	void contextLoads() {

@@ -14,7 +14,7 @@ import com.awg.j20.bplake.domain.Computation;
 import com.awg.j20.bplake.domain.ComputationResult;
 
 @ExtendWith(SpringExtension.class)
-@ActiveProfiles(profiles = {"comp-local"})
+@ActiveProfiles(profiles = {"comp-local", "computator"})
 @SpringBootTest(classes = {LocalComputeService.class})
 public class LocalComputeServiceTest {
 	@Autowired

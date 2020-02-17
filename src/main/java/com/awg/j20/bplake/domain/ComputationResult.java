@@ -3,6 +3,9 @@ package com.awg.j20.bplake.domain;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+/**
+ * Contains {@link Computation} and it's result after evaluation.
+ */
 @JsonRootName("ComputationResult")
 public class ComputationResult {
 	@JsonProperty("computation")

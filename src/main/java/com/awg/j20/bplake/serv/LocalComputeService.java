@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 import com.awg.j20.bplake.domain.Computation;
 import com.awg.j20.bplake.domain.ComputationResult;
 
+/**
+ * Computation service that compute locally.
+ */
 @Service
-@Profile("comp-local")
+@Profile("computator")
 public class LocalComputeService implements ComputeService {
 	private Logger logger = LoggerFactory.getLogger("LocalComputeService");
 

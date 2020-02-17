@@ -44,6 +44,7 @@ public class RemoteComputeServiceTest {
 	@BeforeTestClass
 	public void setup() {
 		when(mockConfig.computatorUrl()).thenReturn("http://localhost:9001");
+		//mockRestServiceServer.bindTo(computeSrvUnderTest.)
 	}
 
 	@Test

@@ -17,25 +17,37 @@ import com.awg.j20.bplake.domain.Computation;
 import com.awg.j20.bplake.domain.ComputationResult;
 import com.awg.j20.bplake.serv.ComputeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
+/**
+ * REST controller to receive user's input for math operations.
+ */
 @RestController
 @RequestMapping("/math")
+@Api(value="RemoteAlgebra")
 public class ArithmeticCntrl {
 	private Logger logger = LoggerFactory.getLogger("ArithmeticCntrl");
 	@Autowired
 	private ComputeService computeService;
 
 	@GetMapping(value="/algebra/{operation}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Send operands for remote computations",response = ComputationResult.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully calculated"),
+            @ApiResponse(code = 500, message = "Remote computation in error")
+    	}
+    )
 	public ResponseEntity<ComputationResult> algebra(@PathVariable("operation") String operation,
-						  @RequestParam("operandA") String operandA,
-						  @RequestParam("operandB") String operandB) {
+						  @RequestParam("operandA") Integer operandA,
+						  @RequestParam("operandB") Integer operandB) {
 		
 		logger.info("Got request: " + operation + "A=" + operandA + " * B=" + operandB);
 		
-		//TODO: validate and use direct:
-		Integer a = Integer.valueOf(operandA);
-		Integer b = Integer.valueOf(operandB);
-		
-		Computation computation = new Computation(ArithmeticCntrlOperatorResolver.resolve(operation), a, b);
+		Computation computation = new Computation(ArithmeticCntrlOperatorResolver.resolve(operation),
+												  operandA, operandB);
 		
 		ComputationResult computationResult = computeService.compute(computation);
 		
@@ -43,5 +55,4 @@ public class ArithmeticCntrl {
 		headers.add("Content-Type", MediaType.APPLICATION_JSON_VALUE);
 		return new ResponseEntity<ComputationResult>(computationResult, headers, HttpStatus.OK);
 	}
-
 }

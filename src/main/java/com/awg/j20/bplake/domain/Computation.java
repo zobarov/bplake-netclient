@@ -2,6 +2,9 @@ package com.awg.j20.bplake.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+/**
+ * Contains operands and operator for processing.
+ */
 public class Computation {
 	@JsonDeserialize(as = AlgebraOperatorEnum.class)
 	private AlgebraOperator algebraOperation;
